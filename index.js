@@ -82,7 +82,7 @@ const generateId = () => {
   const name = body.name
   const existing = persons.find(person => person.name === name)
   if (existing) {
-    return res.status(400).json({
+    return res.status(409).json({
       error: 'name must be unique'
     })
   }
