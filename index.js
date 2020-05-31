@@ -17,10 +17,10 @@ app.get('/', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  date = new Date().toUTCString()
+  const date = new Date().toUTCString()
   Person.find({}).then(persons => {
     res.send(`Phonebook has info for ${persons.length} people <br><br> ${date}`)
-  }) 
+  })
 })
 
 app.get('/api/persons', (req, res) => {
@@ -37,13 +37,13 @@ app.get('/api/persons/:id', (req, res, next) => {
       } else {
         res.status(404).end()
       }
-  })
-  .catch(error => next(error))
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(result => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
@@ -67,7 +67,7 @@ app.put('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
- app.post('/api/persons', (req, res, next) => {
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
 
   const person = new Person({
